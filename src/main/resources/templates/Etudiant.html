@@ -1,58 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="template">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-2">
-    <div class="card">
-        <div class="card-header">Liste des etudiants</div>
-        <div class="card-body">
-            <form mathode="get" th:action="@{index}">
-                <label>Mot Cle</label>
-                <input type="text" name="keyword" th:value="${keyword}">
-                <button type="submit" class="btn btn-primary">Chercher</button>
-            </form>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Email</th>
-                    <th>Date Naissance</th>
-                    <th>Genre</th>
-                    <th>EstRegle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="e:${listEtudiant}">
-                    <td th:text="${e.id}"></td>
-                    <td th:text="${e.nom}"></td>
-                    <td th:text="${e.prenom}"></td>
-                    <td th:text="${e.email}"></td>
-                    <td th:text="${e.dateNaissance}"></td>
-                    <td th:text="${e.genre}"></td>
-                    <td th:text="${e.estRegle}"></td>
-                    <td>
-                        <a onclick="return confirm('Etes vous sure')" class="btn btn-danger" th:href="@{delete(id=${e.id}, keyword=${keyword})}">Supprimer</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <ul class="nav nav-pills">
-                <li th:each="page,status:${pages}">
-                    <a th:class="${status.index==status.current?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
-                       th:text="${status.index}"
-                       th:href="@{index(page=${status.index},keyword=${keyword})}"
-                    ></a>
-                </li>
-            </ul>
+    <div layout:fragment="content">
+        <div class="container mt-2">
+            <div class="card">
+                <div class="card-header">Liste des etudiants</div>
+                <div class="card-body">
+                    <form mathode="get" th:action="@{index}">
+                        <label>Mot Cle</label>
+                        <input type="text" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="btn btn-primary">Chercher</button>
+                    </form>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Date Naissance</th>
+                            <th>Genre</th>
+                            <th>EstRegle</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="e:${listEtudiant}">
+                            <td th:text="${e.id}"></td>
+                            <td th:text="${e.nom}"></td>
+                            <td th:text="${e.prenom}"></td>
+                            <td th:text="${e.email}"></td>
+                            <td th:text="${e.dateNaissance}"></td>
+                            <td th:text="${e.genre}"></td>
+                            <td th:text="${e.estRegle}"></td>
+                            <td>
+                                <a onclick="return confirm('Etes vous sure')" class="btn btn-danger" th:href="@{delete(id=${e.id}, keyword=${keyword})}">Supprimer</a>
+                            </td>
+                            <td >
+                                <a  class="btn btn-success" th:href="@{editEtudiant(id=${e.id})}">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <ul class="nav nav-pills">
+                        <li th:each="page,status:${pages}">
+                            <a th:class="${status.index==status.current?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
+                               th:text="${status.index}"
+                               th:href="@{index(page=${status.index},keyword=${keyword})}"
+                            ></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
     </div>
-</div>
 
 </body>
 </html>

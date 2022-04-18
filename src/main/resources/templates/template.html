@@ -29,8 +29,8 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Etudiants</a>
                 <ul class="dropdown-menu">
-                    <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" th:href="@{/admin/formEtudiant}">Nouveau</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/index}">Chercher</a></li>
+                    <li><a class="dropdown-item" th:href="@{formEtudiant}">Nouveau</a></li>
+                    <li><a class="dropdown-item" th:href="@{index}">Chercher</a></li>
                 </ul>
             </li>
         </ul>
@@ -51,7 +51,7 @@
     </div>
     </div>
 </nav>
-<section layout:fragment="content1"></section>
+<section layout:fragment="content"></section>
 
 </body>
 </html>
